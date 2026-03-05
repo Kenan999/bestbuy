@@ -1,24 +1,34 @@
+"""
+This module contains the Store class which manages a collection of products.
+"""
 from typing import List, Tuple
 import products
 
 class Store:
+    """Represents a store containing a list of products."""
     def __init__(self, products_list: List[products.Product]):
+        """Initializes a store with a list of products."""
         self.products = products_list
 
     def add_product(self, product: products.Product):
+        """Adds a product to the store."""
         self.products.append(product)
 
     def remove_product(self, product: products.Product):
+        """Removes a product from the store."""
         if product in self.products:
             self.products.remove(product)
 
     def get_total_quantity(self) -> int:
+        """Returns the total number of items in the store."""
         return sum(product.get_quantity() for product in self.products)
 
     def get_all_products(self) -> List[products.Product]:
+        """Returns all active products in the store."""
         return [product for product in self.products if product.is_active()]
 
     def order(self, shopping_list: List[Tuple[products.Product, int]]) -> float:
+        """Processes an order and returns the total price."""
         total_price = 0.0
         for product, quantity in shopping_list:
             total_price += product.buy(quantity)
